@@ -2,20 +2,18 @@ import '../styles/VolunteerTable.css';
 import { Avatar, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { Volunteer } from '../ts/interfaces';
 
-function VolunteerTable({ data }: { data: Volunteer[] }) {
+function VolunteerTable({ data, maxHeight }: { data: Volunteer[], maxHeight: string }) {
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={{maxHeight: maxHeight}}>
       <Table>
         <TableHead>
           <TableRow>
             <TableCell align="center">Name</TableCell>
-            <TableCell align="right">Hero Project</TableCell>
-            <TableCell align="right">Notes</TableCell>
-            <TableCell align="right">Email</TableCell>
             <TableCell align="right">Phone</TableCell>
+            <TableCell align="right">Email</TableCell>
             <TableCell align="right">Rating</TableCell>
             <TableCell align="right">Status</TableCell>
-            <TableCell align="right">ID</TableCell>
+            <TableCell align="right">Hero Project</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -28,13 +26,11 @@ function VolunteerTable({ data }: { data: Volunteer[] }) {
                 <Avatar src={volunteer.avatar}/>
                 {volunteer.name}
               </TableCell>
-              <TableCell align="right">{volunteer.hero_project}</TableCell>
-              <TableCell align="right">{volunteer.notes}</TableCell>
-              <TableCell align="right">{volunteer.email}</TableCell>
               <TableCell align="right">{volunteer.phone}</TableCell>
+              <TableCell align="right">{volunteer.email}</TableCell>
               <TableCell align="right">{volunteer.rating}</TableCell>
               <TableCell align="right">{volunteer.status ? "Active" : "Inactive"}</TableCell>
-              <TableCell align="right">{volunteer.id}</TableCell>
+              <TableCell align="right">{volunteer.hero_project}</TableCell>
             </TableRow>
           ))}
         </TableBody>
