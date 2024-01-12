@@ -1,13 +1,15 @@
 import '../styles/VolunteerTable.css';
-import { Avatar, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import { IconButton, Avatar, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { Volunteer } from '../ts/interfaces';
+import EditIcon from '@mui/icons-material/Edit';
 
-function VolunteerTable({ data, maxHeight }: { data: Volunteer[], maxHeight: string }) {
+function VolunteerTable({ data, maxHeight, onEditClick }: { data: Volunteer[], maxHeight: string, onEditClick: (id: number) => void }) {
   return (
     <TableContainer component={Paper} sx={{maxHeight: maxHeight}}>
       <Table>
         <TableHead>
           <TableRow>
+            <TableCell align="center"/>
             <TableCell align="center">Name</TableCell>
             <TableCell align="right">Phone</TableCell>
             <TableCell align="right">Email</TableCell>
@@ -22,9 +24,14 @@ function VolunteerTable({ data, maxHeight }: { data: Volunteer[], maxHeight: str
               key={volunteer.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
+              <TableCell>
+                <IconButton onClick={() => onEditClick(volunteer.id)}>
+                  <EditIcon />
+                </IconButton>
+              </TableCell>
               <TableCell component="th" scope="row" sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                <Avatar src={volunteer.avatar}/>
-                {volunteer.name}
+                  <Avatar src={volunteer.avatar}/>
+                  {volunteer.name}
               </TableCell>
               <TableCell align="right">{volunteer.phone}</TableCell>
               <TableCell align="right">{volunteer.email}</TableCell>

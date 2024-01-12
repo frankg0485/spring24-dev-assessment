@@ -4,6 +4,7 @@ import { Volunteer } from './ts/interfaces';
 import { Button } from '@mui/material';
 import './styles/App.css';
 import NewVolunteerModal from './components/NewVolunteerModal';
+import EditVolunteerModal from './components/EditVolunteerModal';
 
 function App() {
   const defaultVolunteer = {
@@ -20,7 +21,9 @@ function App() {
 
   const [volunteerData, setVolunteerData] = useState<Volunteer[]>([]);
   const [nvModalOpen, setNVModalOpen] = useState<boolean>(false);
-  const [newVolunteer, setNewVolunteer] = useState<Volunteer>(defaultVolunteer);
+  const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
+  const [currentVolunteer, setCurrentVolunteer] = useState<Volunteer>(defaultVolunteer);
+
   useEffect(() => {
     fetch("http://localhost:8000/api/bog/users")
     .then((response) => response.json())
@@ -32,27 +35,49 @@ function App() {
   const onNVFormClose = (submit: boolean = false) => {
     if (submit) {
       volunteerData.push({
-        ...newVolunteer,
+        ...currentVolunteer,
         id: volunteerData.length + 1
       })
     };
-    setNewVolunteer(defaultVolunteer);
+    setCurrentVolunteer(defaultVolunteer);
     setNVModalOpen(false);
   }
 
-  const handleNVFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onEditFormClose = (submit: boolean = false) => {
+    if (submit) {
+      const indexToUpdate = volunteerData.findIndex((volunteer) => volunteer.id === currentVolunteer.id);
+
+      if (indexToUpdate !== -1) {
+        volunteerData[indexToUpdate] = { ...currentVolunteer };
+      }
+    }
+
+    setCurrentVolunteer(defaultVolunteer);
+    setEditModalOpen(false);
+  }
+
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
-    setNewVolunteer((prevVolunteer) => ({
+    setCurrentVolunteer((prevVolunteer) => ({
       ...prevVolunteer,
       [id]: value,
     }));
   };
 
+  const onVolunteerEditClick = (id: number) => {    
+    // deep copy
+    setCurrentVolunteer({
+      ...volunteerData.filter((v) => v.id == id)[0]
+    });
+    setEditModalOpen(true);
+  }
+
   return (
     <div className="App">
       <Button onClick={() => setNVModalOpen(true)}>Add Volunteer</Button>
-      <NewVolunteerModal volunteer={newVolunteer} onInputChange={handleNVFormChange} open={nvModalOpen} handleClose={onNVFormClose}/>
-      <VolunteerTable data={volunteerData} maxHeight="80vh"/>
+      <NewVolunteerModal volunteer={currentVolunteer} onInputChange={handleFormChange} open={nvModalOpen} handleClose={onNVFormClose}/>
+      <EditVolunteerModal volunteer={currentVolunteer} onInputChange={handleFormChange} open={editModalOpen} handleClose={onEditFormClose}/>
+      <VolunteerTable data={volunteerData} onEditClick={onVolunteerEditClick} maxHeight="80vh"/>
     </div>
   );
 }
