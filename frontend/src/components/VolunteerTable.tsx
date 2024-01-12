@@ -2,8 +2,9 @@ import '../styles/VolunteerTable.css';
 import { IconButton, Avatar, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { Volunteer } from '../ts/interfaces';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-function VolunteerTable({ data, maxHeight, onEditClick }: { data: Volunteer[], maxHeight: string, onEditClick: (id: number) => void }) {
+function VolunteerTable({ data, maxHeight, onEditClick, onDeleteClick }: { data: Volunteer[], maxHeight: string, onEditClick: (id: number) => void, onDeleteClick: (id: number) => void }) {
   return (
     <TableContainer component={Paper} sx={{maxHeight: maxHeight}}>
       <Table>
@@ -25,8 +26,11 @@ function VolunteerTable({ data, maxHeight, onEditClick }: { data: Volunteer[], m
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell>
-                <IconButton onClick={() => onEditClick(volunteer.id)}>
+              <IconButton onClick={() => onEditClick(volunteer.id)}>
                   <EditIcon />
+                </IconButton>
+                <IconButton onClick={() => onDeleteClick(volunteer.id)}>
+                  <DeleteIcon />
                 </IconButton>
               </TableCell>
               <TableCell component="th" scope="row" sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>

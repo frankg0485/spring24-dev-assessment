@@ -5,6 +5,7 @@ import { Button } from '@mui/material';
 import './styles/App.css';
 import NewVolunteerModal from './components/NewVolunteerModal';
 import EditVolunteerModal from './components/EditVolunteerModal';
+import { SettingsInputAntennaTwoTone } from '@mui/icons-material';
 
 function App() {
   const defaultVolunteer = {
@@ -72,12 +73,20 @@ function App() {
     setEditModalOpen(true);
   }
 
+  const onVolunteerDeleteClick = (id: number) => {
+      const indexToDelete = volunteerData.findIndex((volunteer) => volunteer.id === id);
+
+      if (indexToDelete !== -1) {
+        setVolunteerData((oldData) => oldData.filter((_, index) => index !== indexToDelete));
+      }
+  }
+
   return (
     <div className="App">
       <Button onClick={() => setNVModalOpen(true)}>Add Volunteer</Button>
       <NewVolunteerModal volunteer={currentVolunteer} onInputChange={handleFormChange} open={nvModalOpen} handleClose={onNVFormClose}/>
       <EditVolunteerModal volunteer={currentVolunteer} onInputChange={handleFormChange} open={editModalOpen} handleClose={onEditFormClose}/>
-      <VolunteerTable data={volunteerData} onEditClick={onVolunteerEditClick} maxHeight="80vh"/>
+      <VolunteerTable data={volunteerData} onDeleteClick={onVolunteerDeleteClick} onEditClick={onVolunteerEditClick} maxHeight="80vh"/>
     </div>
   );
 }
