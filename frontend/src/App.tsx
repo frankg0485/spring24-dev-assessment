@@ -58,12 +58,20 @@ function App() {
   }
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
+    let { id, value } = e.target;
+    if (!id) id = "status";
     setCurrentVolunteer((prevVolunteer) => ({
       ...prevVolunteer,
       [id]: value,
     }));
   };
+
+  const handleRatingChange = (e: React.SyntheticEvent<Element>, val: number | null) => {
+    setCurrentVolunteer((prevVolunteer) => ({
+      ...prevVolunteer,
+      rating: val! * 2
+    }));
+  }
 
   const onVolunteerEditClick = (id: number) => {    
     // deep copy
@@ -84,7 +92,7 @@ function App() {
   return (
     <div className="App">
       <Button onClick={() => setNVModalOpen(true)}>Add Volunteer</Button>
-      <NewVolunteerModal volunteer={currentVolunteer} onInputChange={handleFormChange} open={nvModalOpen} handleClose={onNVFormClose}/>
+      <NewVolunteerModal volunteer={currentVolunteer} onInputChange={handleFormChange} onRatingChange={handleRatingChange} open={nvModalOpen} handleClose={onNVFormClose}/>
       <EditVolunteerModal volunteer={currentVolunteer} onInputChange={handleFormChange} open={editModalOpen} handleClose={onEditFormClose}/>
       <VolunteerTable data={volunteerData} onDeleteClick={onVolunteerDeleteClick} onEditClick={onVolunteerEditClick} maxHeight="80vh"/>
     </div>
