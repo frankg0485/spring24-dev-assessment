@@ -52,9 +52,12 @@ function VolunteerTable({ data, maxHeight, onEditClick, onDeleteClick }: { data:
             </TableRow>
           ))}
         </TableBody>
-        <TableFooter>
-            <TableRow>
-              <TablePagination
+        <TableFooter sx={{
+          position: "sticky",
+          bottom: 0,
+          backgroundColor: "white",
+          }}>
+            <TablePagination
                 rowsPerPage={rowsPerPage}
                 count={data.length}
                 page={page}
@@ -62,7 +65,6 @@ function VolunteerTable({ data, maxHeight, onEditClick, onDeleteClick }: { data:
                 labelRowsPerPage={null}
                 rowsPerPageOptions={[]}
               />
-            </TableRow>
         </TableFooter>
       </Table>
     </TableContainer>
