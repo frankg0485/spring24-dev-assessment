@@ -1,10 +1,17 @@
 import '../styles/VolunteerTable.css';
-import { IconButton, Avatar, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import { TableFooter, TablePagination, IconButton, Avatar, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { Volunteer } from '../ts/interfaces';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useState } from 'react';
 
 function VolunteerTable({ data, maxHeight, onEditClick, onDeleteClick }: { data: Volunteer[], maxHeight: string, onEditClick: (id: number) => void, onDeleteClick: (id: number) => void }) {
+  const [page, setPage] = useState<number>(0);
+  const rowsPerPage = 10;
+  const handlePageChange = (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, page: number) => {
+    setPage(page);
+  };
+
   return (
     <TableContainer component={Paper} sx={{maxHeight: maxHeight}}>
       <Table>
@@ -20,7 +27,7 @@ function VolunteerTable({ data, maxHeight, onEditClick, onDeleteClick }: { data:
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((volunteer) => (
+          {data.slice(page * rowsPerPage, (page + 1) * rowsPerPage).map((volunteer) => (
             <TableRow
               key={volunteer.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -45,6 +52,18 @@ function VolunteerTable({ data, maxHeight, onEditClick, onDeleteClick }: { data:
             </TableRow>
           ))}
         </TableBody>
+        <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPage={rowsPerPage}
+                count={data.length}
+                page={page}
+                onPageChange={handlePageChange}
+                labelRowsPerPage={null}
+                rowsPerPageOptions={[]}
+              />
+            </TableRow>
+        </TableFooter>
       </Table>
     </TableContainer>
   );
