@@ -20,7 +20,7 @@ function VolunteerActionModal({
   return (
     <Modal open={open} onClose={() => handleClose(false)}>
       <Box sx={VolunteerActionModalStyles.container}>
-        <Box sx={{textAlign: "center", fontSize: "1.5em"}}>
+        <Box sx={{textAlign: "center", fontSize: "1.5rem"}}>
           {isEditing ? `Edit ${volunteer.name}'s Info` : "Add New Volunteer"}
         </Box>
         <br />

@@ -1,3 +1,20 @@
 .App {
   text-align: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.App > .add-button {
+  border: 3px solid #ffd8b1;
+  border-radius: 20px;
+  text-transform: none;
+  color: black;
+  font-weight: 300;
+  font-size: 2rem;
+}
+
+.App > .title {
+  color: black;
+  font-size: 3.5rem;
 }

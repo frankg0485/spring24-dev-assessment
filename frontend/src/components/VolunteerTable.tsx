@@ -13,7 +13,7 @@ function VolunteerTable({ data, maxHeight, onEditClick, onDeleteClick }: { data:
   };
 
   return (
-    <TableContainer component={Paper} sx={{maxHeight: maxHeight}}>
+    <TableContainer component={Paper} sx={{maxHeight: maxHeight, maxWidth: "90vw"}}>
       <Table>
         <TableHead>
           <TableRow>

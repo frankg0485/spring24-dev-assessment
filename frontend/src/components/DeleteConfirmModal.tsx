@@ -14,7 +14,7 @@ function DeleteConfirmModal({
   return (
     <Modal open={open} onClose={() => handleClose(false)}>
       <Box sx={DeleteConfirmModalStyles.container}>
-        <Box sx={{textAlign: "center", fontSize: "1.5em"}}>
+        <Box sx={{textAlign: "center", fontSize: "1.5rem"}}>
           {`Delete ${volunteer.name}?`}
         </Box>
         <br/>

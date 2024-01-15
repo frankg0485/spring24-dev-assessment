@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import VolunteerTable from "./components/VolunteerTable";
 import { Volunteer } from "./ts/interfaces";
-import { Button } from "@mui/material";
+import { Button, Box } from "@mui/material";
 import "./styles/App.css";
 import VolunteerActionModal from "./components/VolunteerActionModal";
 import DeleteConfirmModal from "./components/DeleteConfirmModal";
@@ -103,10 +103,14 @@ function App() {
 
   return (
     <div className="App">
-      <Button onClick={onAddVolunteerClick}>Add Volunteer</Button>
+      <Box className="title">
+        HaHa Heroes VMS
+      </Box>
       <VolunteerActionModal isEditing={isEditing} volunteer={currentVolunteer} onInputChange={handleFormChange} onRatingChange={handleRatingChange} open={volunteerActionModalOpen} handleClose={onVolunteerFormClose} />
       <DeleteConfirmModal volunteer={currentVolunteer} open={deleteConfirmModalOpen} handleClose={onDeleteFormClose} />
       <VolunteerTable data={volunteerData} onDeleteClick={onVolunteerDeleteClick} onEditClick={onVolunteerEditClick} maxHeight="80vh" />
+      <br />
+      <Button className="add-button" onClick={onAddVolunteerClick}>Add Volunteer</Button>
     </div>
   );
 }
