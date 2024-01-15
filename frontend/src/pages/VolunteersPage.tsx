@@ -6,6 +6,7 @@ import "../styles/VolunteersPage.css";
 import VolunteerActionModal from "../components/VolunteerActionModal";
 import DeleteConfirmModal from "../components/DeleteConfirmModal";
 import { useNavigate } from "react-router-dom";
+import { useVolunteerContext } from "../components/VolunteerContext";
 
 function VolunteersPage() {
   const defaultVolunteer = {
@@ -18,21 +19,14 @@ function VolunteersPage() {
     phone: "",
     rating: 0,
     status: false,
+    clicks: 0
   };
 
-  const [volunteerData, setVolunteerData] = useState<Volunteer[]>([]);
+  const { volunteerData, updateVolunteerData } = useVolunteerContext()!;
   const [volunteerActionModalOpen, setVolunteerActionModalOpen] = useState<boolean>(false);
   const [deleteConfirmModalOpen, setDeleteConfirmModalOpen] = useState<boolean>(false);
   const [currentVolunteer, setCurrentVolunteer] = useState<Volunteer>(defaultVolunteer);
   const [isEditing, setIsEditing] = useState<boolean>(false);
-
-  useEffect(() => {
-    fetch("http://localhost:8000/api/bog/users")
-      .then((response) => response.json())
-      .then((data) => {
-        setVolunteerData(data);
-      });
-  }, []);
 
   const onVolunteerFormClose = (submit: boolean = false) => {
     if (submit) {
@@ -42,6 +36,7 @@ function VolunteersPage() {
 
         if (indexToUpdate !== -1) {
           volunteerData[indexToUpdate] = { ...currentVolunteer };
+          updateVolunteerData(volunteerData);
         }
       } else {
         // add a new volunteer
@@ -49,6 +44,7 @@ function VolunteersPage() {
           ...currentVolunteer,
           id: volunteerData.length + 1,
         });
+        updateVolunteerData(volunteerData);
       }
     }
     setCurrentVolunteer(defaultVolunteer);
@@ -60,7 +56,7 @@ function VolunteersPage() {
       const indexToDelete = volunteerData.findIndex((volunteer) => volunteer.id === currentVolunteer.id);
 
       if (indexToDelete !== -1) {
-        setVolunteerData((oldData) => oldData.filter((_, index) => index !== indexToDelete));
+        updateVolunteerData(volunteerData.filter((_, index) => index !== indexToDelete));
       }
     }
 
@@ -107,7 +103,13 @@ function VolunteersPage() {
 
   const navigate = useNavigate();
   const onNotesClick = (id: number) => {
-    navigate(`/notes/${id}`);
+    const target = volunteerData.filter((volunteer) => volunteer.id == id)[0];
+    target.clicks++;
+    navigate(`/notes/${id}`, {
+      state: {
+        volunteer: target
+      }
+    });
   };
 
   const onAddVolunteerClick = () => {

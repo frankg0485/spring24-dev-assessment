@@ -8,4 +8,5 @@ export interface Volunteer {
     phone: string;
     rating: number;
     status: boolean;
+    clicks: number;
   }

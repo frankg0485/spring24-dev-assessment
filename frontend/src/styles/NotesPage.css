@@ -1,21 +1,32 @@
 .NotesPage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .NotesPage > .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 50vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 50vw;
 }
 
 .NotesPage > .notes {
-    width: 50vw;
-    height: 30vh;
-    padding: 2vh;
-    background-color: #ffd8b1;
-    border-radius: 20px;
+  width: 50vw;
+  height: 30vh;
+  padding: 2vh;
+  background-color: #ffd8b1;
+  border-radius: 20px;
+  margin: 10px 0px;
+}
+
+@media only screen and (max-width: 800px) {
+  .NotesPage > .header {
+    width: 90vw;
+  }
+
+  .NotesPage > .notes {
+    width: 90vw;
+  }
 }
