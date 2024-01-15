@@ -20,6 +20,7 @@ function VolunteerActionModal({
   return (
     <Modal open={open} onClose={() => handleClose(false)} className="VolunteerActionModal">
       <Box className="container">
+        
         <Box sx={{ textAlign: "center", fontSize: "1.5rem" }}>{isEditing ? `Edit ${volunteer.name}'s Info` : "Add New Volunteer"}</Box>
         <br />
         <form onSubmit={() => handleClose(true)} style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-evenly" }}>
@@ -36,9 +37,13 @@ function VolunteerActionModal({
           <div style={{ width: "100%", textAlign: "start" }}>
             <FormControlLabel sx={{ marginLeft: 0, color: "rgba(0, 0, 0, 0.6)" }} id="status" labelPlacement="start" control={<Checkbox checked={volunteer.status} onChange={onInputChange} />} label="Active?" />
           </div>
-          <div style={{display: "flex", justifyContent: "space-evenly"}}>
-          <Button onClick={() => handleClose(false)} className="btn-action">Cancel</Button>
-          <Button type="submit" className="btn-action" sx={{fontWeight: 600}}>Confirm</Button>
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+            <Button onClick={() => handleClose(false)} className="btn-action">
+              Cancel
+            </Button>
+            <Button type="submit" className="btn-action" sx={{ fontWeight: 600 }}>
+              Confirm
+            </Button>
           </div>
         </form>
       </Box>

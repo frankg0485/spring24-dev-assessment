@@ -15,7 +15,7 @@
   flex-direction: column;
 }
 
-.btn-action {
+button.btn-action {
     text-transform: none;
     color: black;
     border: 3px solid #ffd8b1;
@@ -23,7 +23,7 @@
     width: 30%;
 }
 
-.btn-action:hover {
+button.btn-action:hover {
     background-color: #ffd8b1;
 }
 
