@@ -69,8 +69,15 @@ function VolunteersPage() {
   };
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let { id, value } = e.target;
-    if (!id) id = "status";
+    let id = e.target.id;
+    let value: any;
+    if (!id) {
+      id = "status";
+      value = e.target.checked;
+    } else {
+      value = e.target.value;
+    }
+
     setCurrentVolunteer((prevVolunteer) => ({
       ...prevVolunteer,
       [id]: value,
@@ -80,7 +87,7 @@ function VolunteersPage() {
   const handleRatingChange = (e: React.SyntheticEvent<Element>, val: number | null) => {
     setCurrentVolunteer((prevVolunteer) => ({
       ...prevVolunteer,
-      rating: val!,
+      rating: val ?? 0,
     }));
   };
 

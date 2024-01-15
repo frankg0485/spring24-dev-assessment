@@ -1,0 +1,35 @@
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40vw;
+  height: 60vh;
+  background-color: #f5f5f5;
+  border: 2px solid #ffd8b1;
+  border-radius: 20px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  padding: 2vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-action {
+    text-transform: none;
+    color: black;
+    border: 3px solid #ffd8b1;
+    border-radius: 5px;
+    width: 30%;
+}
+
+.btn-action:hover {
+    background-color: #ffd8b1;
+}
+
+@media only screen and (max-width: 800px) {
+  .container {
+    width: 85vw;
+    height: 80vh;
+  }
+}
