@@ -36,19 +36,20 @@ function VolunteersPage() {
 
   const onVolunteerFormClose = (submit: boolean = false) => {
     if (submit) {
-      if (isEditing) { // edit existing volunteer
+      if (isEditing) {
+        // edit existing volunteer
         const indexToUpdate = volunteerData.findIndex((volunteer) => volunteer.id === currentVolunteer.id);
 
         if (indexToUpdate !== -1) {
           volunteerData[indexToUpdate] = { ...currentVolunteer };
         }
-      } else { // add a new volunteer
+      } else {
+        // add a new volunteer
         volunteerData.push({
           ...currentVolunteer,
           id: volunteerData.length + 1,
         });
       }
-      
     }
     setCurrentVolunteer(defaultVolunteer);
     setVolunteerActionModalOpen(false);
@@ -65,7 +66,7 @@ function VolunteersPage() {
 
     setCurrentVolunteer(defaultVolunteer);
     setDeleteConfirmModalOpen(false);
-  }
+  };
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let { id, value } = e.target;
@@ -99,8 +100,8 @@ function VolunteersPage() {
 
   const navigate = useNavigate();
   const onNotesClick = (id: number) => {
-    navigate(`/notes/${id}`)
-  }
+    navigate(`/notes/${id}`);
+  };
 
   const onAddVolunteerClick = () => {
     setIsEditing(false);
@@ -109,14 +110,16 @@ function VolunteersPage() {
 
   return (
     <div className="VolunteersPage">
-      <Box className="title">
-        HaHa Heroes VMS
-      </Box>
+      <div className="header">
+        <Box className="title">HaHa Heroes VMS</Box>
+        <Button className="add-button" onClick={onAddVolunteerClick}>
+          Add Volunteer
+        </Button>
+      </div>
+      <br />
       <VolunteerActionModal isEditing={isEditing} volunteer={currentVolunteer} onInputChange={handleFormChange} onRatingChange={handleRatingChange} open={volunteerActionModalOpen} handleClose={onVolunteerFormClose} />
       <DeleteConfirmModal volunteer={currentVolunteer} open={deleteConfirmModalOpen} handleClose={onDeleteFormClose} />
-      <VolunteerTable onNotesClick={onNotesClick} data={volunteerData} onDeleteClick={onVolunteerDeleteClick} onEditClick={onVolunteerEditClick} height="80vh" />
-      <br />
-      <Button className="add-button" onClick={onAddVolunteerClick}>Add Volunteer</Button>
+      <VolunteerTable onNotesClick={onNotesClick} data={volunteerData} onDeleteClick={onVolunteerDeleteClick} onEditClick={onVolunteerEditClick} height="70vh" />
     </div>
   );
 }

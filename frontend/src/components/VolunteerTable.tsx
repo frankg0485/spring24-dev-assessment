@@ -20,8 +20,8 @@ function VolunteerTable({ data, height, onEditClick, onDeleteClick, onNotesClick
   };
 
   return (
-    <TableContainer component={Paper} sx={{ height: height, maxWidth: "90vw" }}>
-      <Table>
+    <TableContainer component={Paper} sx={{ height: height }}>
+      <Table stickyHeader={true} size="small">
         <TableHead>
           <TableRow>
             <TableCell align="center" />
@@ -37,7 +37,7 @@ function VolunteerTable({ data, height, onEditClick, onDeleteClick, onNotesClick
           {data.slice(page * rowsPerPage, (page + 1) * rowsPerPage).map((volunteer, index) => (
             <TableRow key={volunteer.id} sx={{
               "&:last-child td, &:last-child th": { border: 0 },
-              backgroundColor: index % 2 == 0 ? "lightgray" : "white"
+              backgroundColor: index % 2 == 0 ? "lightgray" : "white",
               }}>
               <TableCell>
                 <IconButton onClick={() => onEditClick(volunteer.id)}>
@@ -50,9 +50,9 @@ function VolunteerTable({ data, height, onEditClick, onDeleteClick, onNotesClick
                   <NotesIcon />
                 </IconButton>
               </TableCell>
-              <TableCell component="th" scope="row" sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <Avatar src={volunteer.avatar} />
-                {volunteer.name}
+              <TableCell sx={{height: "100%", verticalAlign: "middle", textAlign: "center" }}>
+                <Avatar src={volunteer.avatar} sx={{margin: "auto"}} />
+                <div>{volunteer.name}</div>
               </TableCell>
               <TableCell align="right">{volunteer.phone}</TableCell>
               <TableCell align="right">{volunteer.email}</TableCell>

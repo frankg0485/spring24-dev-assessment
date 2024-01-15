@@ -1,20 +1,47 @@
 .VolunteersPage {
-  text-align: center;
-  align-items: center;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  padding-left: 10vw;
+  padding-right: 10vw;
 }
 
-.VolunteersPage > .add-button {
-  border: 3px solid #ffd8b1;
+.VolunteersPage > .header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.VolunteersPage > .header > .add-button {
   border-radius: 20px;
   text-transform: none;
   color: black;
+  background-color: #ffd8b1;
   font-weight: 300;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
-.VolunteersPage > .title {
+.VolunteersPage > .header > .title {
   color: black;
-  font-size: 3.5rem;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+@media only screen and (max-width: 600px) {
+  .VolunteersPage {
+    padding-left: 3vw;
+    padding-right: 3vw;
+  }
+
+  .VolunteersPage > .header > .title {
+    color: black;
+    font-size: 1rem;
+  }
+
+  .VolunteersPage > .header > .add-button {
+    font-size: 0.75rem;
+  }
 }
