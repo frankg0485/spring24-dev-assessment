@@ -4,6 +4,7 @@ import { Volunteer } from "./ts/interfaces";
 import { Button } from "@mui/material";
 import "./styles/App.css";
 import VolunteerActionModal from "./components/VolunteerActionModal";
+import DeleteConfirmModal from "./components/DeleteConfirmModal";
 
 function App() {
   const defaultVolunteer = {
@@ -20,6 +21,7 @@ function App() {
 
   const [volunteerData, setVolunteerData] = useState<Volunteer[]>([]);
   const [volunteerActionModalOpen, setVolunteerActionModalOpen] = useState<boolean>(false);
+  const [deleteConfirmModalOpen, setDeleteConfirmModalOpen] = useState<boolean>(false);
   const [currentVolunteer, setCurrentVolunteer] = useState<Volunteer>(defaultVolunteer);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
@@ -51,6 +53,19 @@ function App() {
     setVolunteerActionModalOpen(false);
   };
 
+  const onDeleteFormClose = (confirm: boolean) => {
+    if (confirm) {
+      const indexToDelete = volunteerData.findIndex((volunteer) => volunteer.id === currentVolunteer.id);
+
+      if (indexToDelete !== -1) {
+        setVolunteerData((oldData) => oldData.filter((_, index) => index !== indexToDelete));
+      }
+    }
+
+    setCurrentVolunteer(defaultVolunteer);
+    setDeleteConfirmModalOpen(false);
+  }
+
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let { id, value } = e.target;
     if (!id) id = "status";
@@ -77,11 +92,8 @@ function App() {
   };
 
   const onVolunteerDeleteClick = (id: number) => {
-    const indexToDelete = volunteerData.findIndex((volunteer) => volunteer.id === id);
-
-    if (indexToDelete !== -1) {
-      setVolunteerData((oldData) => oldData.filter((_, index) => index !== indexToDelete));
-    }
+    setDeleteConfirmModalOpen(true);
+    setCurrentVolunteer(volunteerData.filter((volunteer) => volunteer.id == id)[0]);
   };
 
   const onAddVolunteerClick = () => {
@@ -93,6 +105,7 @@ function App() {
     <div className="App">
       <Button onClick={onAddVolunteerClick}>Add Volunteer</Button>
       <VolunteerActionModal isEditing={isEditing} volunteer={currentVolunteer} onInputChange={handleFormChange} onRatingChange={handleRatingChange} open={volunteerActionModalOpen} handleClose={onVolunteerFormClose} />
+      <DeleteConfirmModal volunteer={currentVolunteer} open={deleteConfirmModalOpen} handleClose={onDeleteFormClose} />
       <VolunteerTable data={volunteerData} onDeleteClick={onVolunteerDeleteClick} onEditClick={onVolunteerEditClick} maxHeight="80vh" />
     </div>
   );
