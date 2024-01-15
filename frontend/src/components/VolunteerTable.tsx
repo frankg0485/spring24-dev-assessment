@@ -5,7 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
 
-function VolunteerTable({ data, maxHeight, onEditClick, onDeleteClick }: { data: Volunteer[], maxHeight: string, onEditClick: (id: number) => void, onDeleteClick: (id: number) => void }) {
+function VolunteerTable({ data, height, onEditClick, onDeleteClick }: { data: Volunteer[], height: string, onEditClick: (id: number) => void, onDeleteClick: (id: number) => void }) {
   const [page, setPage] = useState<number>(0);
   const rowsPerPage = 10;
   const handlePageChange = (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, page: number) => {
@@ -13,7 +13,7 @@ function VolunteerTable({ data, maxHeight, onEditClick, onDeleteClick }: { data:
   };
 
   return (
-    <TableContainer component={Paper} sx={{maxHeight: maxHeight, maxWidth: "90vw"}}>
+    <TableContainer component={Paper} sx={{height: height, maxWidth: "90vw"}}>
       <Table>
         <TableHead>
           <TableRow>

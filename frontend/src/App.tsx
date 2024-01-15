@@ -78,7 +78,7 @@ function App() {
   const handleRatingChange = (e: React.SyntheticEvent<Element>, val: number | null) => {
     setCurrentVolunteer((prevVolunteer) => ({
       ...prevVolunteer,
-      rating: val! * 2,
+      rating: val!,
     }));
   };
 
@@ -108,7 +108,7 @@ function App() {
       </Box>
       <VolunteerActionModal isEditing={isEditing} volunteer={currentVolunteer} onInputChange={handleFormChange} onRatingChange={handleRatingChange} open={volunteerActionModalOpen} handleClose={onVolunteerFormClose} />
       <DeleteConfirmModal volunteer={currentVolunteer} open={deleteConfirmModalOpen} handleClose={onDeleteFormClose} />
-      <VolunteerTable data={volunteerData} onDeleteClick={onVolunteerDeleteClick} onEditClick={onVolunteerEditClick} maxHeight="80vh" />
+      <VolunteerTable data={volunteerData} onDeleteClick={onVolunteerDeleteClick} onEditClick={onVolunteerEditClick} height="80vh" />
       <br />
       <Button className="add-button" onClick={onAddVolunteerClick}>Add Volunteer</Button>
     </div>

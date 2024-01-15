@@ -30,8 +30,8 @@ function VolunteerActionModal({
         <TextField fullWidth id="email" label="Email" variant="outlined" value={volunteer.email} onChange={onInputChange} />
         <div style={{display: "flex", alignItems: "center", paddingTop: "2vh", paddingBottom: "2vh"}}>
           <Box sx={{color: "rgba(0, 0, 0, 0.6)"}}>Rating:</Box>
-          <Rating sx={{flex: 1, justifyContent: "center"}}id="rating" value={volunteer.rating / 2} onChange={onRatingChange} precision={0.5} />
-          <Box sx={{flex: 3, textAlign: "left"}}>{`(${volunteer.rating} / 10)`}</Box>
+          <Rating sx={{flex: 1, justifyContent: "center"}}id="rating" max={9} value={volunteer.rating} onChange={onRatingChange} />
+          <Box sx={{flex: 1.5, textAlign: "left"}}>{`(${volunteer.rating} / 9)`}</Box>
         </div>
         
         <RadioGroup row id="status" value={volunteer.status} onChange={onInputChange} sx={{display: "flex", alignItems: "center"}}>
