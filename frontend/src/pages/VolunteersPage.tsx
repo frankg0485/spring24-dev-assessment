@@ -5,6 +5,7 @@ import { Button, Box } from "@mui/material";
 import "../styles/VolunteersPage.css";
 import VolunteerActionModal from "../components/VolunteerActionModal";
 import DeleteConfirmModal from "../components/DeleteConfirmModal";
+import { useNavigate } from "react-router-dom";
 
 function VolunteersPage() {
   const defaultVolunteer = {
@@ -96,6 +97,11 @@ function VolunteersPage() {
     setCurrentVolunteer(volunteerData.filter((volunteer) => volunteer.id == id)[0]);
   };
 
+  const navigate = useNavigate();
+  const onNotesClick = (id: number) => {
+    navigate(`/notes/${id}`)
+  }
+
   const onAddVolunteerClick = () => {
     setIsEditing(false);
     setVolunteerActionModalOpen(true);
@@ -108,7 +114,7 @@ function VolunteersPage() {
       </Box>
       <VolunteerActionModal isEditing={isEditing} volunteer={currentVolunteer} onInputChange={handleFormChange} onRatingChange={handleRatingChange} open={volunteerActionModalOpen} handleClose={onVolunteerFormClose} />
       <DeleteConfirmModal volunteer={currentVolunteer} open={deleteConfirmModalOpen} handleClose={onDeleteFormClose} />
-      <VolunteerTable data={volunteerData} onDeleteClick={onVolunteerDeleteClick} onEditClick={onVolunteerEditClick} height="80vh" />
+      <VolunteerTable onNotesClick={onNotesClick} data={volunteerData} onDeleteClick={onVolunteerDeleteClick} onEditClick={onVolunteerEditClick} height="80vh" />
       <br />
       <Button className="add-button" onClick={onAddVolunteerClick}>Add Volunteer</Button>
     </div>
