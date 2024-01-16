@@ -5,7 +5,7 @@ import { useEffect } from "react";
 interface VolunteerContextProps {
   volunteerData: Volunteer[];
   addNewVolunteer: (newVolunteer: Volunteer) => void;
-  editVolunteer: (volunteer: Volunteer) => void;
+  editVolunteer: (volunteer: Volunteer) => Promise<void>;
   deleteVolunteer: (id: number) => void;
 }
 
@@ -26,7 +26,8 @@ export const VolunteerProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   };
 
   const addNewVolunteer = (newVolunteer: Volunteer) => {
-    const key = lastUsedKey + 1;
+    const key: number = +lastUsedKey + +1;
+    console.log(lastUsedKey, key, typeof lastUsedKey, typeof key);
     setLastUsedKey(key);
 
     fetch("http://localhost:8000/api/bog/users", {
@@ -43,8 +44,8 @@ export const VolunteerProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     });
   };
 
-  const editVolunteer = (volunteer: Volunteer) => {
-    fetch(`http://localhost:8000/api/bog/users/${volunteer.id}`, {
+  const editVolunteer = async (volunteer: Volunteer) => {
+    return fetch(`http://localhost:8000/api/bog/users/${volunteer.id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +68,7 @@ export const VolunteerProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     retrieveVolunteers().then((data) => {
       const dataWithClicks = data.map((entry: Volunteer) => ({ ...entry, clicks: 0 }));
       setVolunteerData(dataWithClicks);
-      setLastUsedKey(dataWithClicks.length);
+      setLastUsedKey(dataWithClicks[dataWithClicks.length - 1].id);
     });
   }, []);
 

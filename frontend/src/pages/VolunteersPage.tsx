@@ -92,11 +92,13 @@ function VolunteersPage() {
   const navigate = useNavigate();
   const onNotesClick = (id: number) => {
     const target = volunteerData.filter((volunteer) => volunteer.id == id)[0];
-    target.clicks++;
-    navigate(`/notes/${id}`, {
-      state: {
-        volunteer: target
-      }
+    target.clicks ? target.clicks++ : target.clicks = 1;
+    editVolunteer(target).then(() => {
+      navigate(`/notes/${id}`, {
+        state: {
+          volunteer: target
+        }
+      });
     });
   };
 

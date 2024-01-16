@@ -28,7 +28,7 @@ function NotesPage() {
   }
 
   const volunteer: Volunteer = loc.state.volunteer;
-
+  console.log(volunteer);
   return (
     <div className="NotesPage">
       <div className="header">
