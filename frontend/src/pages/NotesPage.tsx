@@ -1,9 +1,10 @@
 import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { Volunteer } from "../ts/interfaces";
-import { Button } from "@mui/material";
+import { IconButton } from "@mui/material";
 import "../styles/NotesPage.css";
 import { useNavigate } from "react-router-dom";
+import { Keyboard } from "@mui/icons-material";
 
 function NotesPage() {
   const loc = useLocation();
@@ -35,9 +36,9 @@ function NotesPage() {
           <span>Notes For&nbsp;</span>
           <span style={{ fontWeight: 600 }}>{volunteer.name}</span>
         </div>
-        <Button sx={{ textTransform: "none" }} onClick={() => navigate("/")}>
-          Back
-        </Button>
+        <IconButton className="btn-action" style={{width: "auto"}} onClick={() => navigate("/")}>
+          <KeyboardBackspaceIcon />
+        </IconButton>
       </div>
       <div className="notes">{volunteer.notes}</div>
       <div>

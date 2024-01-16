@@ -22,7 +22,7 @@ function VolunteersPage() {
     clicks: 0
   };
 
-  const { volunteerData, updateVolunteerData } = useVolunteerContext()!;
+  const { volunteerData, updateVolunteerData, addNewVolunteer } = useVolunteerContext()!;
   const [volunteerActionModalOpen, setVolunteerActionModalOpen] = useState<boolean>(false);
   const [deleteConfirmModalOpen, setDeleteConfirmModalOpen] = useState<boolean>(false);
   const [currentVolunteer, setCurrentVolunteer] = useState<Volunteer>(defaultVolunteer);
@@ -40,11 +40,7 @@ function VolunteersPage() {
         }
       } else {
         // add a new volunteer
-        volunteerData.push({
-          ...currentVolunteer,
-          id: volunteerData.length + 1,
-        });
-        updateVolunteerData(volunteerData);
+        addNewVolunteer(currentVolunteer);
       }
     }
     setCurrentVolunteer(defaultVolunteer);

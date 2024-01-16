@@ -24,11 +24,11 @@ function VolunteerActionModal({
         <Box sx={{ textAlign: "center", fontSize: "1.5rem" }}>{isEditing ? `Edit ${volunteer.name}'s Info` : "Add New Volunteer"}</Box>
         <br />
         <form onSubmit={() => handleClose(true)} style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-evenly" }}>
-          <TextField required={true} fullWidth id="name" label="Name" variant="outlined" value={volunteer.name} onChange={onInputChange} />
+          <TextField required fullWidth id="name" label="Name" variant="outlined" value={volunteer.name} onChange={onInputChange} />
           <TextField fullWidth id="avatar" label="Avatar URL" variant="outlined" value={volunteer.avatar} onChange={onInputChange} />
           <TextField type="phone" required fullWidth id="phone" label="Phone" variant="outlined" value={volunteer.phone} onChange={onInputChange} />
           <TextField type="email" required fullWidth id="email" label="Email" variant="outlined" value={volunteer.email} onChange={onInputChange} />
-          <TextField fullWidth id="hero_project" label="Hero Project" variant="outlined" value={volunteer.hero_project} onChange={onInputChange} />
+          <TextField required fullWidth id="hero_project" label="Hero Project" variant="outlined" value={volunteer.hero_project} onChange={onInputChange} />
           <div style={{ display: "flex", alignItems: "center", paddingTop: "2vh", paddingBottom: "2vh" }}>
             <Box sx={{ color: "rgba(0, 0, 0, 0.6)" }}>Rating:</Box>
             <Rating sx={{ flex: 1, justifyContent: "center" }} id="rating" max={9} value={volunteer.rating} onChange={onRatingChange} />
