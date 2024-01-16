@@ -22,7 +22,7 @@ function VolunteersPage() {
     clicks: 0
   };
 
-  const { volunteerData, updateVolunteerData, addNewVolunteer } = useVolunteerContext()!;
+  const { volunteerData, addNewVolunteer, editVolunteer, deleteVolunteer } = useVolunteerContext()!;
   const [volunteerActionModalOpen, setVolunteerActionModalOpen] = useState<boolean>(false);
   const [deleteConfirmModalOpen, setDeleteConfirmModalOpen] = useState<boolean>(false);
   const [currentVolunteer, setCurrentVolunteer] = useState<Volunteer>(defaultVolunteer);
@@ -32,12 +32,7 @@ function VolunteersPage() {
     if (submit) {
       if (isEditing) {
         // edit existing volunteer
-        const indexToUpdate = volunteerData.findIndex((volunteer) => volunteer.id === currentVolunteer.id);
-
-        if (indexToUpdate !== -1) {
-          volunteerData[indexToUpdate] = { ...currentVolunteer };
-          updateVolunteerData(volunteerData);
-        }
+        editVolunteer(currentVolunteer);
       } else {
         // add a new volunteer
         addNewVolunteer(currentVolunteer);
@@ -49,11 +44,8 @@ function VolunteersPage() {
 
   const onDeleteFormClose = (confirm: boolean) => {
     if (confirm) {
-      const indexToDelete = volunteerData.findIndex((volunteer) => volunteer.id === currentVolunteer.id);
-
-      if (indexToDelete !== -1) {
-        updateVolunteerData(volunteerData.filter((_, index) => index !== indexToDelete));
-      }
+      console.log("deleteing volunteer with id", currentVolunteer.id);
+      deleteVolunteer(currentVolunteer.id);
     }
 
     setCurrentVolunteer(defaultVolunteer);
